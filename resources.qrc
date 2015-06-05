@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/images/heating_16x16.png</file>
+        <file>resources/images/heating_32x32.png</file>
+        <file>resources/images/heating_64x64.png</file>
+        <file>resources/images/heating_disabled_16x16.png</file>
+        <file>resources/images/heating_disabled_32x32.png</file>
+        <file>resources/images/heating_disabled_64x64.png</file>
+        <file>resources/images/dices_32x32.png</file>
+    </qresource>
+</RCC>
