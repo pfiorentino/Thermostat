@@ -10,10 +10,11 @@ class Device : public QThread
 public:
     Device(const int tNum, DeviceController &ctrl);
     virtual void run();
-    void stop();
-    void heatingOrNot();
+    virtual void stop();
+    virtual void heatingOrNot();
     void randomRealTemp();
-private:
+    bool isRealDevice = false;
+protected:
     DeviceController &_ctrl;
 
     int _d;

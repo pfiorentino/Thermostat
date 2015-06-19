@@ -19,7 +19,7 @@ void Device::run() {
             hStr = "Not Heating";
         }
 
-        qDebug() << "Device" << _tNum << "(" << _cycle << "):" << hStr << _currentTemp << "°C to " << _desiredTemp << "°C";
+        //qDebug() << "Device" << _tNum << "(" << _cycle << "):" << hStr << _currentTemp << "°C to " << _desiredTemp << "°C";
 
         _ctrl.setRealTemp(_tNum, _currentTemp);
 

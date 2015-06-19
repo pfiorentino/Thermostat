@@ -18,20 +18,29 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qDebug() << endl << "-> Launching devices...";
 
-    for(int i = 0; i < _numThreads; ++i) {
+    QWidget *widget = new QWidget;
+    Ui::Device *devUi = new Ui::Device();
+    devUi->setupUi(widget);
+    devUi->deviceName->setText(QString("RealDevice %1").arg(0));
+    _devicesUi.push_back(devUi);
+    ui->devicesTempLayout->addWidget(widget);
+    auto ptr = new RealDevice(0, _devCtrl, "/dev/tty.usbserial-A5026045");
+    _devices.push_back(DevicePtr(ptr));
+    _devices.back()->start();
+    qDebug() << "RealDevice 0 launched";
+
+    for(int i = 1; i < _numThreads; ++i) {
         QWidget *widget = new QWidget;
         Ui::Device *devUi = new Ui::Device();
         devUi->setupUi(widget);
         devUi->deviceName->setText(QString("Capteur %1").arg(i));
-        _devicesUi.push_front(devUi);
+        _devicesUi.push_back(devUi);
         ui->devicesTempLayout->addWidget(widget);
         auto ptr = new Device(i, _devCtrl);
         _devices.push_back(DevicePtr(ptr));
         _devices.back()->start();
         qDebug() << "Device" << i << "launched";
     }
-
-
 }
 
 MainWindow::~MainWindow()
@@ -70,6 +79,8 @@ void MainWindow::heatingStatusChanged(int id, bool heating){
 void MainWindow::on_randomDevices_clicked()
 {
     for (std::list<DevicePtr>::const_iterator iterator = _devices.begin(), end = _devices.end(); iterator != end; ++iterator) {
-        (*iterator)->randomRealTemp();
+        if (!(*iterator)->isRealDevice){
+            (*iterator)->randomRealTemp();
+        }
     }
 }

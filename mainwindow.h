@@ -6,6 +6,7 @@
 #include <QList>
 
 #include "device.h"
+#include "realdevice.h"
 
 #include "ui_device.h"
 
@@ -28,12 +29,14 @@ private slots:
     void heatingStatusChanged(int id, bool heating);
 
     void on_randomDevices_clicked();
-
 private:
     void setTargetTemp(float targetTemp);
+
     Ui::MainWindow *ui;
     typedef std::unique_ptr<Device> DevicePtr;
+
     DeviceController _devCtrl;
+
     std::list<DevicePtr> _devices;
     QList<QLCDNumber*> _devicesDisplay;
     QList<Ui::Device*> _devicesUi;
